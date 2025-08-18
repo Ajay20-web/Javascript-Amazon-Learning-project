@@ -1,8 +1,7 @@
-
 let productHTML = "";
 
-products.forEach((value,index) => {
-    productHTML += `
+products.forEach((value, index) => {
+  productHTML += `
     <div class="product-container">
         <div class="product-image-container">
             <img class="product-image"
@@ -47,17 +46,23 @@ products.forEach((value,index) => {
             Added
         </div>
 
-        <button class="add-to-cart-button button-primary">
+        <button class="add-to-cart-button button-primary js-add-to-cart" data-name="${value.name}">
             Add to Cart
         </button>
-    </div>`
-
-    console.log(value.name);
-    console.log(value.rating.counts);
-    
-    
+    </div>`;
 });
 
-const addHTML = document.querySelector('.js-products-grid');
+const addHTML = document.querySelector(".js-products-grid");
 addHTML.innerHTML = productHTML;
 
+// Add to cart button event listeners
+const addCart = document.querySelectorAll(".js-add-to-cart");
+addCart.forEach(  //--> here how we can loop the element because the queryselectorAll have the ability of creating nodeList that act like array that's the reason we can use forEach.
+  
+    (button) => { 
+    button.addEventListener("click", () => {
+      console.log(button.dataset);
+      
+    });
+  }
+);
