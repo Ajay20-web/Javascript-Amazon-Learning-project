@@ -83,12 +83,20 @@ addCart.forEach(  //--> here how we can loop the element because the queryselect
         quantity: 1
       });
       };
-
-
-
       console.log(matchingItem);
-      
-     console.log(cart);
+      console.log(cart);
+
+      let totalCart = 0;
+
+     cart.forEach( (toCart) =>{
+      totalCart += toCart.quantity
+     });
+
+      console.log(totalCart);
+     
+      document.querySelector('.js-cart-quantity').innerHTML = totalCart;
+    
+
      
       
     });
