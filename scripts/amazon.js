@@ -46,7 +46,7 @@ products.forEach((value, index) => {
             Added
         </div>
 
-        <button class="add-to-cart-button button-primary js-add-to-cart" data-name="${value.name}">
+        <button class="add-to-cart-button button-primary js-add-to-cart" data-productname="${value.name}">
             Add to Cart
         </button>
     </div>`;
@@ -61,7 +61,35 @@ addCart.forEach(  //--> here how we can loop the element because the queryselect
   
     (button) => { 
     button.addEventListener("click", () => {
-      console.log(button.dataset);
+
+     const productName = button.dataset.productname; 
+     console.log(productName);
+
+      
+     
+      let matchingItem;  
+
+      cart.forEach( (item) =>{
+        if (productName === item.productname) {
+            matchingItem = item;
+        };
+      });
+
+      if (matchingItem) {
+        matchingItem.quantity+=1;
+      }else{
+       cart.push({
+        productname: productName,
+        quantity: 1
+      });
+      };
+
+
+
+      console.log(matchingItem);
+      
+     console.log(cart);
+     
       
     });
   }
