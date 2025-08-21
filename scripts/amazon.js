@@ -1,5 +1,5 @@
 import { products } from '../data/products.js';
-import { cart } from '../data/cart.js';
+import { cart, addToCart } from '../data/cart.js';
 
 let productHTML = "";
 
@@ -68,40 +68,8 @@ addCart.forEach(  //--> here how we can loop the element because the queryselect
      const productId = button.dataset.productId; 
      console.log(productId);
 
-      
+     addToCart(productId);
      
-      let matchingItem;  
-
-      cart.forEach( (item) =>{
-        if (productId === item.productid) {
-            matchingItem = item;
-        };
-      });
-
-      if (matchingItem) {
-        matchingItem.quantity+=1;
-      }else{
-       cart.push({
-        productid: productId,
-        quantity: 1
-      });
-      };
-      console.log(matchingItem);
-      console.log(cart);
-
-      let totalCart = 0;
-
-     cart.forEach( (toCart) =>{
-      totalCart += toCart.quantity
-     });
-
-      console.log(totalCart);
-     
-      document.querySelector('.js-cart-quantity').innerHTML = totalCart;
-    
-
-     
-      
     });
   }
 );
