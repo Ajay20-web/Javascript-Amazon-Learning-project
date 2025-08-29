@@ -61,7 +61,6 @@ addHTML.innerHTML = productHTML;
 // Add to cart button event listeners
 const addCart = document.querySelectorAll(".js-add-to-cart");
 addCart.forEach(  //--> here how we can loop the element because the queryselectorAll have the ability of creating nodeList that act like array that's the reason we can use forEach.
-  
     (button) => { 
     button.addEventListener("click", () => {
 
@@ -71,5 +70,4 @@ addCart.forEach(  //--> here how we can loop the element because the queryselect
      addToCart(productId);
      
     });
-  }
-);
+ });

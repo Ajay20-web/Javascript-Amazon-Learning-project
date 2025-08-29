@@ -1,5 +1,6 @@
 import { cart } from '../data/cart.js';
 import { products } from '../data/products.js';
+import { forPrice } from './utlity/utility.js';
 
 
 let checkoutHTML = "";
@@ -32,7 +33,7 @@ checkoutHTML +=`<div class="cart-item-container">
                   ${matchingItem.name}
                 </div>
                 <div class="product-price">
-                  ${matchingItem.priceCents/100}
+                  ${forPrice(matchingItem.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
@@ -54,7 +55,7 @@ checkoutHTML +=`<div class="cart-item-container">
 
                 <div class="delivery-option">
                   <input type="radio" class="delivery-option-input"
-                    name="delivery-option-2">
+                    name="${matchingItem.id}">
                   <div>
                     <div class="delivery-option-date">
                       Tuesday, June 21
@@ -66,7 +67,7 @@ checkoutHTML +=`<div class="cart-item-container">
                 </div>
                 <div class="delivery-option">
                   <input type="radio" checked class="delivery-option-input"
-                    name="delivery-option-2">
+                    name="${matchingItem.id}">
                   <div>
                     <div class="delivery-option-date">
                       Wednesday, June 15
@@ -78,7 +79,7 @@ checkoutHTML +=`<div class="cart-item-container">
                 </div>
                 <div class="delivery-option">
                   <input type="radio" class="delivery-option-input"
-                    name="delivery-option-2">
+                    name="${matchingItem.id}">
                   <div>
                     <div class="delivery-option-date">
                       Monday, June 13
