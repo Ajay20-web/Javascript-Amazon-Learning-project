@@ -3,7 +3,7 @@ export let cart = [{
   quantity: 2
 },{
   productid:"15b6fc6f-327a-4ec4-896f-486349e85a3d",
-  quantity: 2
+  quantity: 5
 }];
 
 export function addToCart(productId) {
@@ -24,8 +24,8 @@ export function addToCart(productId) {
       });
       };
 
-      console.log(matchingItem);
-      console.log(cart);
+     // console.log(matchingItem);
+      //console.log(cart);
 
       let totalCart = 0;
      cart.forEach( (toCart) =>{
@@ -34,4 +34,20 @@ export function addToCart(productId) {
 
      document.querySelector('.js-cart-quantity').innerHTML = totalCart;
 };
+
+export function removeFromCart(productId) {
+  const newCart = [];
+ cart.forEach( (cartItem) => {
+ if (productId !== cartItem.productid) {
+    newCart.push(cartItem);
+ };
+ });
+  cart = newCart;
+
+  console.log(newCart);
+  
+ console.log(cart);  
+  
+};    
+
 
