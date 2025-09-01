@@ -1,5 +1,5 @@
 import { products } from '../data/products.js';
-import { cart, addToCart } from '../data/cart.js';
+import { cart, addToCart,showToTotal } from '../data/cart.js';
 
 let productHTML = "";
 
@@ -28,8 +28,8 @@ products.forEach((value, index) => {
         </div>
 
         <div class="product-quantity-container">
-            <select>
-            <option selected value="1">1</option>
+            <select class ="js-quantity-${value.id}">
+            <option selected value="1" >1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
@@ -58,6 +58,8 @@ products.forEach((value, index) => {
 const addHTML = document.querySelector(".js-products-grid");
 addHTML.innerHTML = productHTML;
 
+showToTotal(); //-->this just show the total quantity by using function
+
 // Add to cart button event listeners
 const addCart = document.querySelectorAll(".js-add-to-cart");
 addCart.forEach(  //--> here how we can loop the element because the queryselectorAll have the ability of creating nodeList that act like array that's the reason we can use forEach.
@@ -67,7 +69,10 @@ addCart.forEach(  //--> here how we can loop the element because the queryselect
      const productId = button.dataset.productId; 
      console.log(productId);
 
-     addToCart(productId);
+     const selector = document.querySelector(`.js-quantity-${productId}`).value;
+     console.log(selector);
+
+     addToCart(productId,selector);
      
     });
  });
