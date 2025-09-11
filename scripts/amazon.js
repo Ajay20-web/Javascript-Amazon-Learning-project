@@ -60,6 +60,7 @@ addHTML.innerHTML = productHTML;
 
 showToTotal(); //-->this just show the total quantity by using function
 
+
 // Add to cart button event listeners
 const addCart = document.querySelectorAll(".js-add-to-cart");
 addCart.forEach(  //--> here how we can loop the element because the queryselectorAll have the ability of creating nodeList that act like array that's the reason we can use forEach.
@@ -74,5 +75,7 @@ addCart.forEach(  //--> here how we can loop the element because the queryselect
 
      addToCart(productId,selector);
      
+     showToTotal(); //-->this just show the total quantity by using function
+
     });
  });
