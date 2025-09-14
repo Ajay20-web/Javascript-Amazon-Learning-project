@@ -1,11 +1,10 @@
-import { cart , removeFromCart } from '../data/cart.js';
+import { cart , removeFromCart , saveToStorage , updateDeliveryOption } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { forPrice } from './utlity/utility.js';
 import { deliveryOptions } from '../data/delivery-options.js';
-
-console.log(dayjs().format('dddd, MMM DD'));
-//console.log(deliveryOptionsHTML());
-
+  
+function renderPage() {
+  
 
 let checkoutHTML = "";
 cart.forEach((cartItem)=> {
@@ -87,7 +86,7 @@ function deliveryOptionsHTML(matchingItem , cartItem , showingDate ) {
    
    let isChecked = cartItem.deliveryOptionsid === deliveryOption.id;
    html +=`
-    <div class="delivery-option">
+    <div class="delivery-option js-delivery-option" data-prodectid="${matchingItem.id}" data-deliveryid="${deliveryOption.id}">
           <input type="radio" class="delivery-option-input"
             name="${matchingItem.id}" ${isChecked ? 'checked' : ''} >
           <div>
@@ -111,14 +110,27 @@ delBtn.forEach( (link) => {
   link.addEventListener('click', () => {
 
    const productId = link.dataset.id;
-    
+
     removeFromCart(productId);  
 
     document.querySelector(`.js-container-${productId}`).remove();
-    
-
-    
-    
+     
   });
+
 });
 
+const options = document.querySelectorAll('.js-delivery-option')
+options.forEach( (element) =>{
+  element.addEventListener('click', () =>{
+   const productid = element.dataset.prodectid
+   const deliveryOptionsid = element.dataset.deliveryid
+   
+   updateDeliveryOption(productid , deliveryOptionsid);
+   saveToStorage();
+   renderPage();
+  });   
+});
+
+};
+
+renderPage();

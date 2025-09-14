@@ -11,7 +11,7 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [{
 console.log(cart);
 
 
-function saveToStorage() {
+export function saveToStorage() {
   localStorage.setItem('cart',JSON.stringify(cart));
   
 };
@@ -60,4 +60,15 @@ export function removeFromCart(productId) {
   saveToStorage();//-->just save data using by local storage. 
 };    
 
+export function updateDeliveryOption(productid , deliveryOptionsid) {
+let matchingItem; 
 
+  cart.forEach( (item) =>{
+ if (productid === item.productid) {
+       matchingItem = item;
+    };
+  });
+
+  matchingItem.deliveryOptionsid = deliveryOptionsid
+  
+}
