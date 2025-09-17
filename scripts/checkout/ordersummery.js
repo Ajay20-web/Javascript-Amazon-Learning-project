@@ -2,6 +2,7 @@ import { cart , removeFromCart , saveToStorage , updateDeliveryOption } from '..
 import { products } from '../../data/products.js';
 import { forPrice } from '../utlity/utility.js';
 import { deliveryOptions } from '../../data/delivery-options.js';
+import dayjs from 'https://cdn.jsdelivr.net/npm/dayjs@1.11.18/+esm';
   
 export function renderPage() {
 
