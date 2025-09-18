@@ -3,7 +3,8 @@ import { products } from '../../data/products.js';
 import { forPrice } from '../utlity/utility.js';
 import { deliveryOptions } from '../../data/delivery-options.js';
 import dayjs from 'https://cdn.jsdelivr.net/npm/dayjs@1.11.18/+esm';
-  
+import { renderPaymentSummery } from './paymentsummery.js';
+
 export function renderPage() {
 
 let checkoutHTML = "";
@@ -111,7 +112,8 @@ delBtn.forEach( (link) => {
     removeFromCart(productId);  
 
     document.querySelector(`.js-container-${productId}`).remove();
-     
+    
+    renderPaymentSummery();
   });
 
 });
@@ -125,6 +127,7 @@ options.forEach( (element) =>{
    updateDeliveryOption(productid , deliveryOptionsid);
    saveToStorage();
    renderPage();
+   renderPaymentSummery();
   });   
 });
 

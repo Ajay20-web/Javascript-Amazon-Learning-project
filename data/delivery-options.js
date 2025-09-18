@@ -13,3 +13,15 @@ id:'3',
 deliveryDays:1,
 priceCents:999
 }];
+
+
+export function deliveryOption(option) {
+      let showingOption;
+
+      deliveryOptions.forEach( (deliveryOption) => {
+      if (option === deliveryOption.id) {
+           showingOption = deliveryOption
+      };});
+
+      return showingOption || deliveryOptions[0];
+};
