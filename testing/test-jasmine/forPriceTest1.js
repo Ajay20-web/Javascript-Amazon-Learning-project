@@ -7,7 +7,7 @@ console.log(forPrice(2087));
 describe('test suite: testing the forPrice function', () =>{ // --> this the name of the test group.
     it('checking the forPrice return values' , () => { // --> this the name of what test we do.
         expect(forPrice(2087)).toEqual('$20.87')}); // --> the testing.
-        
+
     it('Testing with 0', () => {
-        expect(forPrice(0)).toEqual('$0.0')});   
+        expect(forPrice(0)).toEqual('$0.00')});   
     });
