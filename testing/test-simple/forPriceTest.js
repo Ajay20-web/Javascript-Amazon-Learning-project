@@ -1,4 +1,4 @@
-import { forPrice } from '../scripts/utlity/utility.js';
+import { forPrice } from '../../scripts/utlity/utility.js';
 
 
 // This the automatic testing we test the important functions with automatic testing like a calculations.
