@@ -2,7 +2,7 @@ export let cart;
 
 loadingFormsStorage()
 
-export function loadingFormsStorage(params) {
+export function loadingFormsStorage() {
   cart = JSON.parse(localStorage.getItem('cart')) || [{
   productid:"e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
   quantity: 2,

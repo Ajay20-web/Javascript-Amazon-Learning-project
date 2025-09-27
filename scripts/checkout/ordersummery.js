@@ -34,7 +34,7 @@ cart.forEach((cartItem)=> {
       const deliveryDate = delivery.format('dddd, MMMM D');   
     
   checkoutHTML +=`
-<div class="cart-item-container js-container-${matchingItem.id}">
+<div class="cart-item-container js-container-${matchingItem.id} js-test-howMany">
   <div class="delivery-date">
     Delivery date: ${ deliveryDate }
   </div>
@@ -57,7 +57,7 @@ cart.forEach((cartItem)=> {
         <span class="update-quantity-link link-primary">
           Update
         </span>
-        <span class="delete-quantity-link link-primary js-delete-link" data-id="${matchingItem.id}">
+        <span class="delete-quantity-link link-primary js-delete-link js-test-delete${matchingItem.id}" data-id="${matchingItem.id}">
           Delete
         </span>
       </div>
