@@ -7,10 +7,10 @@ import { addToCart , cart ,loadingFormsStorage } from  "../../../data/cart.js";
 describe('test suite: testing the cart', ()=> {
 
   it('add new product to cart', ()=> {
+    spyOn(localStorage ,'setItem') //--> This just preventing the our real browser localstorage changes because it's create the fake localstorage.setItem() function so go sit into our real code instate of real localstorage so this preventing the changes happing into real localstorage.
     spyOn(localStorage,'getItem').and.callFake( (key) =>{ //--> We just reassign the cart into localstorage.getItem function so instate of takeing our real localstorage the js take our fake or mock localstorage.getItem() function because jasmine just create the function that is have same name as real browser localstorage so our real cade take that fake function instate of taking real one 
     return JSON.stringify([])
  });
-  spyOn(localStorage ,'setItem') //--> This just preventing the our real browser localstorage changes because it's create the fake localstorage.setItem() function so go sit into our real code instate of real localstorage so this preventing the changes happing into real localstorage.
 
   loadingFormsStorage()// --> This call is connecting our real cart file into our testing cart file and giving access to the testing framework.  
   //console.log(localStorage.getItem(''));
@@ -23,7 +23,7 @@ describe('test suite: testing the cart', ()=> {
 });
 
 it('add on existing product into testing mock cart to check the addCart',() =>{
-
+ spyOn(localStorage ,'setItem');
   spyOn(localStorage,'getItem').and.callFake( (key) =>{
     return JSON.stringify([{
       productid:'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -32,7 +32,7 @@ it('add on existing product into testing mock cart to check the addCart',() =>{
     }]);
  });
 
-  spyOn(localStorage ,'setItem')
+ 
 
   loadingFormsStorage()
   //console.log(localStorage.getItem(''));

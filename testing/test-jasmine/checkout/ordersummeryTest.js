@@ -1,8 +1,6 @@
 import { renderPage } from '../../../scripts/checkout/ordersummery.js';
 import { cart, loadingFormsStorage } from '../../../data/cart.js';
 
-//let cart='ajay';
-
 console.log(cart);
 
 // integration testing 
@@ -47,6 +45,10 @@ describe('test suite: testing the renderPage function form orderSummery.js', ()=
 
     expect( document.querySelector(`.js-container-${prodect1}`) ).toEqual(null);
     expect( document.querySelector(`.js-container-${prodect2}`) ).not.toEqual(null);//-->This told not equal to null so that means some data or something present in the dom.
-      
+    expect( localStorage.setItem).toHaveBeenCalledTimes(1)  
+  });
+
+  afterEach( ()=>{ //--> This just run after the it() block run this just clean up the html that's all.
+    document.querySelector('.js-test-container').innerHTML ='';
   });
 });
