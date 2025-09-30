@@ -1,15 +1,15 @@
 //This the javaScript class and class also is object one of the oop concept
 class Cart {
-cartItem = undefined;
-localStorageKey = undefined;
+cartItem = undefined; 
+#localStorageKey = undefined; // --> This the 2020es feature of js called private property this helpful secure property out side of the class we can't change the property values in outside of the class if we give #property.
 
 constructor(localStorageKey){ //--> the reference of constructor function name is impotent because class is pre build thing so it's working based on the prototype js not have real oop class.
-this.localStorageKey = localStorageKey;
-this.loadingFormsStorage();
+this.#localStorageKey = localStorageKey;
+this.#loadingFormsStorage();
 };
 
-loadingFormsStorage() {
-  this.cartItem = JSON.parse(localStorage.getItem(this.localStorageKey)) || [{
+#loadingFormsStorage() { //--> This called private method same like a private property we can't call this method outside of class.
+  this.cartItem = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [{
   productid:"e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
   quantity: 2,
   deliveryOptionsid:'1'
@@ -21,7 +21,7 @@ loadingFormsStorage() {
 };
 
 saveToStorage() {
-  localStorage.setItem( this.localStorageKey ,JSON.stringify(this.cartItem));
+  localStorage.setItem( this.#localStorageKey ,JSON.stringify(this.cartItem));
 };
 
 addToCart(productId,selector) {
@@ -84,6 +84,6 @@ const cart2 = new Cart('cart-business');
 
 console.log(cart1);
 console.log(cart2);
-console.log();
+
 
 
