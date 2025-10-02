@@ -17,7 +17,7 @@ products.forEach((value, index) => {
 
         <div class="product-rating-container">
             <img class="product-rating-stars"
-            src="images/ratings/rating-${value.rating.stars * 10}.png">
+            src="${value.getStaresUrl()}">
             <div class="product-rating-count link-primary">
             ${value.rating.count}
             </div>
@@ -79,3 +79,5 @@ addCart.forEach(  //--> here how we can loop the element because the queryselect
 
     });
  });
+
+
