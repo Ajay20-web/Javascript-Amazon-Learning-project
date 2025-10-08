@@ -41,7 +41,7 @@ products.forEach((value, index) => {
             <option value="10">10</option>
             </select>
         </div>
-
+            ${value.sizeChartLinkHtml()}
         <div class="product-spacer"></div>
 
         <div class="added-to-cart">

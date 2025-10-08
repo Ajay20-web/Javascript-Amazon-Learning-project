@@ -29,6 +29,23 @@ class product {
   getStaresUrl(){
     return `images/ratings/rating-${this.rating.stars * 10}.png`
   };
+
+  sizeChartLinkHtml(){ // this oop method called method override 
+    return '';
+   }
+};
+ 
+class Clothing extends product{
+ sizeChartLink;
+ constructor(productDetails){
+ super(productDetails);
+ this.sizeChartLink = productDetails.sizeChartLink
+ }
+
+ sizeChartLinkHtml(){  // this oop method called method override
+ //super.sizeChartLinkHtml() //--> We can access the parent method also.
+  return `<a href="${this.sizeChartLink}"> Size Chart </a>`
+ }
 };
 
 export const products = [
@@ -691,7 +708,12 @@ export const products = [
     ]
   }
 ].map((productDetails)=>{
- return new product(productDetails);
+ if (productDetails.type === "clothing") {
+  return new Clothing(productDetails);
+ }
+  return new product(productDetails);
 });
+
+console.log(products);
 
 
