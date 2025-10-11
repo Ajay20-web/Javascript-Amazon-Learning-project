@@ -1,83 +1,88 @@
-import { products } from '../data/products.js';
+import { products , loadProduct } from '../data/products.js';
 import { cart, addToCart,showToTotal } from '../data/cart.js';
 
-let productHTML = "";
+loadProduct(renderHtmlGrid , ()=>{}); //--> we are passing the function name without () because we want to pass the reference of the function not to call it.
 
-products.forEach((value, index) => {
-  productHTML += `
-    <div class="product-container">
-        <div class="product-image-container">
-            <img class="product-image"
-            src="${value.image}">
-        </div>
 
-        <div class="product-name limit-text-to-2-lines">
-           ${value.name}
-        </div>
 
-        <div class="product-rating-container">
-            <img class="product-rating-stars"
-            src="${value.getStaresUrl()}">
-            <div class="product-rating-count link-primary">
-            ${value.rating.count}
+function renderHtmlGrid() {
+   let productHTML = ""; 
+   
+    products.forEach((value, index) => {
+    productHTML += `
+        <div class="product-container">
+            <div class="product-image-container">
+                <img class="product-image"
+                src="${value.image}">
             </div>
-        </div>
 
-        <div class="product-price">
-           $ ${(value.priceCents / 100).toFixed(2)}
-        </div>
+            <div class="product-name limit-text-to-2-lines">
+            ${value.name}
+            </div>
 
-        <div class="product-quantity-container">
-            <select class ="js-quantity-${value.id}">
-            <option selected value="1" >1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            </select>
-        </div>
-            ${value.sizeChartLinkHtml()}
-        <div class="product-spacer"></div>
+            <div class="product-rating-container">
+                <img class="product-rating-stars"
+                src="${value.getStaresUrl()}">
+                <div class="product-rating-count link-primary">
+                ${value.rating.count}
+                </div>
+            </div>
 
-        <div class="added-to-cart">
-            <img src="images/icons/checkmark.png">
-            Added
-        </div>
+            <div class="product-price">
+            $ ${(value.priceCents / 100).toFixed(2)}
+            </div>
 
-        <button class="add-to-cart-button button-primary js-add-to-cart" data-product-Id="${value.id}">
-            Add to Cart
-        </button>
-    </div>`;
-});
+            <div class="product-quantity-container">
+                <select class ="js-quantity-${value.id}">
+                <option selected value="1" >1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                </select>
+            </div>
+                ${value.sizeChartLinkHtml()}
+            <div class="product-spacer"></div>
 
-const addHTML = document.querySelector(".js-products-grid");
-addHTML.innerHTML = productHTML;
+            <div class="added-to-cart">
+                <img src="images/icons/checkmark.png">
+                Added
+            </div>
 
-showToTotal(); //-->this just show the total quantity by using function
-
-
-// Add to cart button event listeners
-const addCart = document.querySelectorAll(".js-add-to-cart");
-addCart.forEach(  //--> here how we can loop the element because the queryselectorAll have the ability of creating nodeList that act like array that's the reason we can use forEach.
-    (button) => { 
-    button.addEventListener("click", () => {
-
-     const productId = button.dataset.productId; 
-     console.log(productId);
-
-     const selector = document.querySelector(`.js-quantity-${productId}`).value;
-     console.log(selector);
-
-     addToCart(productId,selector);
-     
-     showToTotal(); //-->this just show the total quantity by using function
-
+            <button class="add-to-cart-button button-primary js-add-to-cart" data-product-Id="${value.id}">
+                Add to Cart
+            </button>
+        </div>`;
     });
- });
+
+    const addHTML = document.querySelector(".js-products-grid");
+    addHTML.innerHTML = productHTML;
+
+    showToTotal(); //-->this just show the total quantity by using function
 
 
+    // Add to cart button event listeners
+    const addCart = document.querySelectorAll(".js-add-to-cart");
+    addCart.forEach(  //--> here how we can loop the element because the queryselectorAll have the ability of creating nodeList that act like array that's the reason we can use forEach.
+        (button) => { 
+        button.addEventListener("click", () => {
+
+        const productId = button.dataset.productId; 
+        console.log(productId);
+
+        const selector = document.querySelector(`.js-quantity-${productId}`).value;
+        console.log(selector);
+
+        addToCart(productId,selector);
+        
+        showToTotal(); //-->this just show the total quantity by using function
+
+        });
+    });
+
+};
