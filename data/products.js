@@ -50,7 +50,7 @@ class Clothing extends product{
 
 export let products = [];
 
-export function loadProduct(fun, renderPage) {
+export function loadProduct(fun) {
 
   const xhr = new XMLHttpRequest();
   xhr.addEventListener('load',()=>{
@@ -61,16 +61,15 @@ export function loadProduct(fun, renderPage) {
       return new product(productDetails);
     }); 
 
-   fun(); //--> we are calling the function here because we want to call the function after the data is loaded from the server this idea is called callback function.
-   renderPage();
+    fun(); //--> we are calling the function here because we want to call the function after the data is loaded from the server this idea is called callback function.
    
-   
-   console.log(products);
+    console.log(products)
   });
 
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 
+  
 };
 
 
