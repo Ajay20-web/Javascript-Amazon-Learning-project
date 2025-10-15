@@ -77,4 +77,17 @@ let matchingItem;
 
   matchingItem.deliveryOptionsid = deliveryOptionsid
   
-}
+};
+
+ export function loadingCartEg(funEg) {
+ 
+ const xhr = new XMLHttpRequest();
+ xhr.addEventListener('load', () => {
+  console.log(xhr.responseText);
+  funEg();
+
+ });
+  xhr.open('GET', 'https://supersimplebackend.dev/cart');
+  xhr.send();
+
+};
