@@ -1,13 +1,18 @@
 import { renderPage } from '../../../scripts/checkout/ordersummery.js';
 import { cart, loadingFormsStorage } from '../../../data/cart.js';
-import { loadProduct , products } from '../../../data/products.js';
+import { products , loadFetch } from '../../../data/products.js';
 console.log(products);
 
 // integration testing 
 describe('test suite: testing the renderPage function form orderSummery.js', ()=> {
 
 beforeAll((done)=>{
-  loadProduct(done, ()=>{}); //--> This loadProduct function is for getting the product data from the backend server and that done() function we give argument to the loadProduct() and we run the done() function after getting the data so that done() run the full test after getting the data from server.
+  // loadProduct(done); //--> This loadProduct function is for getting the product data from the backend server and that done() function we give argument to the loadProduct() and we run the done() function after getting the data so that done() run the full test after getting the data from server.
+ 
+  Promise.all([loadFetch()]).then(()=>{
+    done(); //-->This done() function run the full test after getting the data from server.
+  });
+
 });
 
 

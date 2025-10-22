@@ -1,7 +1,10 @@
-import { products , loadProduct } from '../data/products.js';
+import { products , loadFetch } from '../data/products.js';
 import { cart, addToCart,showToTotal } from '../data/cart.js';
 
-loadProduct(renderHtmlGrid); //--> we are passing the function name without () because we want to pass the reference of the function not to call it.
+//loadProduct(renderHtmlGrid); //--> we are passing the function name without () because we want to pass the reference of the function not to call it.
+Promise.all([loadFetch()]).then(()=>{
+    renderHtmlGrid();
+});
 
 export function renderHtmlGrid() {
    let productHTML = ""; 

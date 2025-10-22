@@ -49,7 +49,27 @@ class Clothing extends product{
 };
 
 export let products = [];
+export function loadFetch() {
+ const promise = fetch('https://supersimplebackend.dev/products').then( (response)=>{
+    return response.json()
+  }).then((data)=>{
+    products = data.map((productDetails)=>{
+    if (productDetails.type === "clothing") {
+      return new Clothing(productDetails);
+    }
+      return new product(productDetails);
+    });
+  });
+   
+  return promise;
 
+  
+  
+};
+
+
+
+/*
 export function loadProduct(fun) {
 
   const xhr = new XMLHttpRequest();
@@ -63,7 +83,7 @@ export function loadProduct(fun) {
 
     fun(); //--> we are calling the function here because we want to call the function after the data is loaded from the server this idea is called callback function.
    
-    console.log(products)
+    //console.log(products)
   });
 
   xhr.open('GET', 'https://supersimplebackend.dev/products');
@@ -71,13 +91,7 @@ export function loadProduct(fun) {
 
   
 };
-
-
-
-
-
-
-
+*/
 
 
 /*
