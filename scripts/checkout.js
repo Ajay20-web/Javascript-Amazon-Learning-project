@@ -6,13 +6,20 @@ import { loadingCartEg } from "../data/cart.js";
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
 
+async function asyncFunction() {
+    await loadFetch();
+    renderPage();
+    renderPaymentSummery();
+}
 
-console.log(loadFetch());
+asyncFunction();
+
+/*
 Promise.all([loadFetch()]).then(()=>{
     renderPage();
     renderPaymentSummery();
    
-});
+});*/
 
 
 /*
