@@ -53,9 +53,24 @@ export function renderPaymentSummery() {
             <div class="payment-summary-money">${forPrice(totalPrice)}</div>
           </div>
 
-          <button class="place-order-button button-primary">
+          <button class="place-order-button button-primary js-place-order">
             Place your order
           </button>`
     
        document.querySelector('.js-payment').innerHTML = paymentSummeryHTML
+          document.querySelector('.js-place-order').addEventListener('click', async () => { 
+           const response = await fetch('https://supersimplebackend.dev/orders', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  cart: cart 
+                }),
+              });
+              const orders = await response.json();
+              alert('Order placed successfully!');
+              console.log(orders);
+              window.location.href = 'amazon.html'
+          });
 }
