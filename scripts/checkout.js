@@ -7,10 +7,18 @@ import { loadingCartEg } from "../data/cart.js";
 //import '../data/backend-practice.js';
 
 async function asyncFunction() {
-    await loadFetch();
+    try {
+   const data = await loadFetch();
     renderPage();
     renderPaymentSummery();
-}
+    console.log(data);
+    
+    
+    }catch (error) {
+        console.log('error:',error.message);   
+    }
+   
+};
 
 asyncFunction();
 
