@@ -1,5 +1,5 @@
 import { products , loadFetch } from '../data/products.js';
-import { cart, addToCart,showToTotal } from '../data/cart.js';
+import { addToCart,showToTotal } from '../data/cart.js';
 
 //loadProduct(renderHtmlGrid); //--> we are passing the function name without () because we want to pass the reference of the function not to call it.
 /* 
@@ -7,18 +7,87 @@ Promise.all([loadFetch()]).then(()=>{
     renderHtmlGrid();
 });*/
 
-async function fetchCall() {
-    await loadFetch();
-    renderHtmlGrid();
+//function for add to cart button add event listener.
+function addToCartBtn() { 
+    const addCart = document.querySelectorAll(".js-add-to-cart");
+    addCart.forEach(  //--> here how we can loop the element because the queryselectorAll have the ability of creating nodeList that act like array that's the reason we can use forEach.
+        (button) => { 
+        button.addEventListener("click", () => {
+
+        const productId = button.dataset.productId; 
+        console.log(productId);
+
+        const selector = document.querySelector(`.js-quantity-${productId}`).value;
+        console.log(selector);
+
+        addToCart(productId,selector);
+        
+        showToTotal(); //-->this just show the total quantity by using function
+
+        });
+    });
+
 };
-
-fetchCall();
-
-export function renderHtmlGrid() {
-   let productHTML = ""; 
+//function for search bar functionality but i didn't use it if someone want they can use it. 
+function searchBar() {
+    let filteredProducts = [];
+    document.querySelector('.js-search-bar').addEventListener('input', (e) => {
+        const searchString = e.target.value.toLowerCase();
+        if (searchString.length === 0) {
+            htmlRendering(products);
+            addToCartBtn(); //--> adding the add to cart button function after rendering the html again
+            return;
+        };
+        filteredProducts = products.filter((filterProduct) => {
+         return filterProduct.name.toLowerCase().includes(searchString) || filterProduct.keywords.some((arrayKey)=>{
+            return arrayKey.toLowerCase().includes(searchString);
+            });
+        });
+             
+         htmlRendering(filteredProducts);
+         addToCartBtn(); //--> adding the add to cart button function after rendering the html again
+         console.log(filteredProducts);
+         
+    }); 
    
-    products.forEach((value, index) => {
-    productHTML += `
+   
+};
+//function for search button functionality
+function searchBtn() {
+   let filteredProducts = [];
+   const searchBtnEvent = document.querySelector(".js-search-btn")
+ searchBtnEvent.addEventListener("click",()=>{ 
+    const inputTest = document.querySelector('.js-search-bar');
+    const inputValue = inputTest.value;
+    const searchString = inputValue.toLowerCase();
+     
+    filteredProducts = products.filter((filterProduct) => {
+        return filterProduct.name.toLowerCase().includes(searchString) || filterProduct.keywords.some((arrayKey)=>{
+            return arrayKey.toLowerCase().includes(searchString);
+        });
+   });
+
+    console.log(filteredProducts);
+    
+    if (filteredProducts.length === 0) {
+        alert("No products found!");
+        htmlRendering(products);
+        addToCartBtn();
+        inputTest.value = ""; 
+        return;
+    }
+   
+    htmlRendering(filteredProducts);
+    addToCartBtn(); //--> calling the add to cart button function after rendering the html again
+    inputTest.value = ""; 
+  });
+    
+};
+//function for rendering the html of products
+function htmlRendering(products) {
+    let productHTML = ""; 
+    products.forEach((value) => {
+     productHTML += `
         <div class="product-container">
             <div class="product-image-container">
                 <img class="product-image"
@@ -71,27 +140,32 @@ export function renderHtmlGrid() {
 
     const addHTML = document.querySelector(".js-products-grid");
     addHTML.innerHTML = productHTML;
-
-    showToTotal(); //-->this just show the total quantity by using function
-
-
-    // Add to cart button event listeners
-    const addCart = document.querySelectorAll(".js-add-to-cart");
-    addCart.forEach(  //--> here how we can loop the element because the queryselectorAll have the ability of creating nodeList that act like array that's the reason we can use forEach.
-        (button) => { 
-        button.addEventListener("click", () => {
-
-        const productId = button.dataset.productId; 
-        console.log(productId);
-
-        const selector = document.querySelector(`.js-quantity-${productId}`).value;
-        console.log(selector);
-
-        addToCart(productId,selector);
-        
-        showToTotal(); //-->this just show the total quantity by using function
-
-        });
-    });
-
+    
 };
+//the main function for the dynamic rendering of products
+
+export function renderHtmlGrid(products) {
+    
+ htmlRendering(products); //--> calling the htmlRendering function fot the products html rendering
+   
+ showToTotal(); //--> this just show the total quantity by using function
+ 
+ addToCartBtn(); //--> calling the add to cart button function for add event listener
+
+ //searchBar(); //--> calling the search bar function and generate the html based on search input filter value
+
+ searchBtn();
+};
+//async function to fetch the products data and then run the main rendering function
+async function fetchCall() {
+    await loadFetch();
+    renderHtmlGrid(products);
+    console.log(products);
+   
+};
+
+fetchCall();
+
+
+
+
