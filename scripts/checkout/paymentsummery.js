@@ -1,7 +1,8 @@
-import { cart } from "../../data/cart.js"
+import { cart , afterOrderPlaced} from "../../data/cart.js"
 import { getProduct } from "../../data/products.js";
 import { deliveryOption } from "../../data/delivery-options.js";
 import { forPrice } from '../utlity/utility.js';
+import { renderPage } from "./ordersummery.js";
 
 
 export function renderPaymentSummery() {
@@ -58,8 +59,11 @@ export function renderPaymentSummery() {
           </button>`
     
        document.querySelector('.js-payment').innerHTML = paymentSummeryHTML
-          document.querySelector('.js-place-order').addEventListener('click', async () => { 
-           const response = await fetch('https://supersimplebackend.dev/orders', {
+        placeOrder();         
+};
+function placeOrder() {
+ document.querySelector('.js-place-order').addEventListener('click', async () => { 
+           const response = await fetch('https://6904bf5b6b8dabde4964f6f1.mockapi.io/Ecommerce-backend/mockapi/order/orders', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -70,7 +74,14 @@ export function renderPaymentSummery() {
               });
               const orders = await response.json();
               alert('Order placed successfully!');
+              let ordersPlaced = JSON.stringify(orders);
+              localStorage.setItem('ordersPlaced', ordersPlaced);
               console.log(orders);
-              window.location.href = 'amazon.html'
+              afterOrderPlaced();
+              localStorage.removeItem('cart');
+              renderPaymentSummery();
+              renderPage();
+
+              //window.location.href = 'amazon.html';
           });
-}
+};
