@@ -63,25 +63,43 @@ export function renderPaymentSummery() {
 };
 function placeOrder() {
  document.querySelector('.js-place-order').addEventListener('click', async () => { 
-           const response = await fetch('https://6904bf5b6b8dabde4964f6f1.mockapi.io/Ecommerce-backend/mockapi/order/orders', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  cart: cart 
-                }),
-              });
-              const orders = await response.json();
-              alert('Order placed successfully!');
-              let ordersPlaced = JSON.stringify(orders);
-              localStorage.setItem('ordersPlaced', ordersPlaced);
-              console.log(orders);
-              afterOrderPlaced();
-              localStorage.removeItem('cart');
-              renderPaymentSummery();
-              renderPage();
+  const response = await fetch('https://6904bf5b6b8dabde4964f6f1.mockapi.io/Ecommerce-backend/mockapi/order/orders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      cart: cart 
+    }),
+  });
+  const orders = await response.json();
+  alert('Order placed successfully!');
+  let ordersPlaced = JSON.stringify(orders);
+  localStorage.setItem('ordersPlaced', ordersPlaced);
+  allOrders();
+  console.log(orders);
+  afterOrderPlaced();
+  localStorage.removeItem('cart');
+  renderPaymentSummery();
+  renderPage();
 
-              //window.location.href = 'amazon.html';
-          });
+  //window.location.href = 'amazon.html';
+});
 };
+
+function allOrders() {
+  
+  const orders = JSON.parse(localStorage.getItem('allOrders'))||[];
+  let ordersPlaced = JSON.parse(localStorage.getItem('ordersPlaced'));
+ 
+  if (ordersPlaced) {
+    orders.push(ordersPlaced);
+    localStorage.setItem('allOrders', JSON.stringify(orders));
+  }
+  
+
+  return orders;
+};
+
+
+

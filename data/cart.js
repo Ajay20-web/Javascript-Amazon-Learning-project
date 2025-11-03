@@ -1,6 +1,8 @@
 export let cart;
 
-loadingFormsStorage()
+export function afterOrderPlaced() {
+  cart = [];  
+}
 
 export function loadingFormsStorage() {
   cart = JSON.parse(localStorage.getItem('cart')) || [{
@@ -14,8 +16,9 @@ export function loadingFormsStorage() {
 }]; 
 }
 
-//console.log(cart);
+loadingFormsStorage()
 
+//console.log(cart);
 
 export function saveToStorage() {
   localStorage.setItem('cart',JSON.stringify(cart));
@@ -54,7 +57,6 @@ export function showToTotal(){
 };
      
  
-
 export function removeFromCart(productId) {
   const newCart = [];
  cart.forEach( (cartItem) => {
@@ -79,15 +81,4 @@ let matchingItem;
   
 };
 
- export function loadingCartEg(funEg) {
- 
- const xhr = new XMLHttpRequest();
- xhr.addEventListener('load', () => {
-  console.log(xhr.responseText);
-  funEg();
 
- });
-  xhr.open('GET', 'https://supersimplebackend.dev/cart');
-  xhr.send();
-
-};
