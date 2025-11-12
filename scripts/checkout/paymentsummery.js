@@ -83,23 +83,24 @@ function placeOrder() {
   renderPaymentSummery();
   renderPage();
 
-  //window.location.href = 'amazon.html';
+  window.location.href = 'orders.html';
 });
 };
 
+const orders = JSON.parse(localStorage.getItem('allOrders'))||[];
 function allOrders() {
-  
-  const orders = JSON.parse(localStorage.getItem('allOrders'))||[];
   let ordersPlaced = JSON.parse(localStorage.getItem('ordersPlaced'));
  
   if (ordersPlaced) {
-    orders.push(ordersPlaced);
+    //orders.push(ordersPlaced); // --> add to the end of the array
+    orders.unshift(ordersPlaced);//--> add to the beginning of the array
     localStorage.setItem('allOrders', JSON.stringify(orders));
   }
   
-
-  return orders;
 };
+
+console.log(orders);
+
 
 
 
