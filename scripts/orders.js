@@ -1,6 +1,6 @@
 import { getProduct , loadFetch } from '../data/products.js';
 import { forPrice } from './utlity/utility.js'
-import { addToCart } from '../data/cart.js';
+import { addToCart , showToTotal } from '../data/cart.js';
 
 //--This function is for changing the ISO backend date into a readable format--
 function gettingData(itemsDate) {
@@ -107,14 +107,6 @@ function createOrdersHtm() {
    
 };
 
-
-function renderOrders() {
-  createOrdersHtmNewStructure();
-  //createOrdersHtmTest();
-};
-loadFetch(renderOrders); //--> this will run the renderOrders() function after getting the data from backend server.OrdersHtml);
-
-
 // --Test--
 function createOrdersHtmTest() {
   
@@ -211,6 +203,14 @@ function createOrdersHtmTest() {
   document.querySelector('.js-orders-grid').innerHTML = orderHTML;
    
 };
+
+//-- Async function to load the fetch and then call the main rendering function--
+async function loadOrders() {
+  await loadFetch();
+  createOrdersHtmNewStructure();
+};
+loadOrders();
+
 
 
 // --New structure building for same order page it's for understanding--
