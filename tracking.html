@@ -51,7 +51,7 @@
       </div>
     </div>
 
-    <div class="main">
+    <div class="main js-tracking-main">
       <div class="order-tracking">
         <a class="back-to-orders-link link-primary" href="orders.html">
           View all orders
@@ -89,10 +89,6 @@
       </div>
     </div>
 
-    <script>
-     let urlParameters = new URL(window.location.href);
-     console.log(urlParameters.searchParams.get('orderId'));
-     
-    </script>
+    <script type="module" src="scripts/tracking.js"> </script>
   </body>
 </html>

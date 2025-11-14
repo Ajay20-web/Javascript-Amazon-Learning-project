@@ -274,7 +274,7 @@ function createProductsHtml(items) {
       </div>
 
       <div class="product-actions">
-        <a href="tracking.html">
+        <a href="tracking.html?productId=${matchingItem.id}">
           <button class="track-package-button button-secondary">
             Track package
           </button>
