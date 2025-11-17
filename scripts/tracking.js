@@ -1,16 +1,9 @@
 import { getProduct , loadFetch } from '../data/products.js';
 import { deliveryOption } from '../data/delivery-options.js';
 import dayjs from 'https://cdn.jsdelivr.net/npm/dayjs@1.11.18/+esm';
+import { fetchHandler } from './fetchHandler/fetchHandler.js';
 
-
-async function loadFetchInTracking() {
-   
-    await loadFetch();
-    renderTrackingHtml();
-    
-};
-loadFetchInTracking();
-
+fetchHandler(renderTrackingHtml, tryAgainBtn)
 function getMatchingItem() {
     const params = new URLSearchParams(window.location.search);
     const productId = params.get('productId');
@@ -76,6 +69,22 @@ function renderTrackingHtml() {
     `; 
   
  document.querySelector('.js-tracking-main').innerHTML = trackingHtml;
+};
+
+function tryAgainBtn() {
+ const selector = document.querySelector('.main');
+ selector.innerHTML = `
+    <div class="page-title">Something wrong try again</div>
+    <button class="buy-again-button button-primary js-try-btn">
+        <img class="buy-again-icon" src="images/icons/buy-again.png">
+        <span class="buy-again-message">Try again</span>
+    </button>
+  `;
+ const tryBtnEvent = document.querySelector('.js-try-btn')
+ tryBtnEvent.addEventListener('click',()=>{
+  window.location.href = 'tracking.html'
+ });
+
 };
 
 
