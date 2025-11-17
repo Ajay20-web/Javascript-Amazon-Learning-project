@@ -1,6 +1,6 @@
 import { products , loadFetch } from '../data/products.js';
 import { addToCart,showToTotal } from '../data/cart.js';
-
+import { fetchHandler } from './fetchHandler/fetchHandler.js';
 //loadProduct(renderHtmlGrid); //--> we are passing the function name without () because we want to pass the reference of the function not to call it.
 /* 
 Promise.all([loadFetch()]).then(()=>{
@@ -143,7 +143,6 @@ function htmlRendering(products) {
     
 };
 //the main function for the dynamic rendering of products
-
 export function renderHtmlGrid(products) {
     
  htmlRendering(products); //--> calling the htmlRendering function fot the products html rendering
@@ -156,15 +155,27 @@ export function renderHtmlGrid(products) {
 
  searchBtn();
 };
-//async function to fetch the products data and then run the main rendering function
-async function fetchCall() {
-    await loadFetch();
-    renderHtmlGrid(products);
-    console.log(products);
-   
+
+//Using fetchHandler for loading fetch and error handling then calling the main function.
+fetchHandler( () => {renderHtmlGrid(products);}, tryAgainBtn);
+
+//-- Try again button functionality --
+function tryAgainBtn() {
+ const selector = document.querySelector('.main');
+ selector.innerHTML = `
+    <div class="page-title">Something wrong try again</div>
+    <button class="buy-again-button button-primary js-try-btn">
+        <img class="buy-again-icon" src="images/icons/buy-again.png">
+        <span class="buy-again-message">Try again</span>
+    </button>
+  `;
+ const tryBtnEvent = document.querySelector('.js-try-btn')
+ tryBtnEvent.addEventListener('click',()=>{
+  window.location.href = 'amazon.html'
+ });
+
 };
 
-fetchCall();
 
 
 
