@@ -1,6 +1,8 @@
 import { getProduct , loadFetch } from '../data/products.js';
 import { forPrice } from './utlity/utility.js'
-import { addToCart , showToTotal } from '../data/cart.js';
+import { addToCart } from '../data/cart.js';
+import { fetchHandler } from './fetchHandler/fetchHandler.js';
+
 
 //--This function is for changing the ISO backend date into a readable format--
 function gettingData(itemsDate) {
@@ -204,16 +206,36 @@ function createOrdersHtmTest() {
    
 };
 
-//-- Async function to load the fetch and then call the main rendering function--
+//-- Async function to load the fetch and  error handling--
+
+/*
 async function loadOrders() {
-  await loadFetch();
-  createOrdersHtmNewStructure();
+  try {
+    let res = await loadFetch();
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    };
+    createOrdersHtmNewStructure();
+  } catch (error) {
+    //console.log(error.message);
+    const tryBtn = document.querySelector('.js-orders-grid')
+    let show = error.message || 'Something wrong Try again'
+    alert(show);
+    tryAgainBtn(tryBtn);
+    
+  };
+ 
 };
 loadOrders();
+*/
+
 
 
 
 // --New structure building for same order page it's for understanding--
+
+//Using fetchHandler for loading fetch and error handling then calling the main function.
+fetchHandler( createOrdersHtmNewStructure , tryAgainBtn);
 
 // helper function for the header html.
 function createHeaderHtml(orders) {
@@ -306,7 +328,8 @@ function createOrdersHtmNewStructure() {
   
  });
  
- document.querySelector('.js-orders-grid').innerHTML = orderHTML;
+ const ordersHtml = document.querySelector('.js-orders-grid')
+ ordersHtml.innerHTML = orderHTML;
  buyItAgainButton();
 };
 
@@ -327,3 +350,19 @@ function buyItAgainButton() {
  
 };
 
+//-- Try again button functionality --
+function tryAgainBtn() {
+ const selector = document.querySelector('.js-orders-grid');
+ selector.innerHTML = `<button class="buy-again-button button-primary js-try-btn">
+    <img class="buy-again-icon" src="images/icons/buy-again.png">
+    <span class="buy-again-message">Try again</span>
+    </button>
+  `;
+ const tryBtnEvent = document.querySelector('.js-try-btn')
+ tryBtnEvent.addEventListener('click',()=>{
+  window.location.href = 'orders.html'
+ });
+
+};
+
+ 
