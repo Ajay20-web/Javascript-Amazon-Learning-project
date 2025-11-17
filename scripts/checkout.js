@@ -1,26 +1,45 @@
 import { renderPage } from "./checkout/ordersummery.js";
 import { renderPaymentSummery } from "./checkout/paymentsummery.js";
 import {  loadFetch } from "../data/products.js";
-import { loadingCartEg } from "../data/cart.js";
+import { fetchHandler } from './fetchHandler/fetchHandler.js';
 //import '../data/cart-oop.js';
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
 
-async function asyncFunction() {
-    try {
-   const data = await loadFetch();
+//Using fetchHandler for loading fetch and error handling then calling the main function.
+fetchHandler( () => {
     renderPage();
     renderPaymentSummery();
-    console.log(data);
-    
-    
-    }catch (error) {
-        console.log('error:',error.message);   
-    }
-   
+}, tryAgainBtn );
+
+//-- Try again button functionality --
+function tryAgainBtn() {
+ const selector = document.querySelector('.main');
+ selector.innerHTML = `
+    <div class="page-title">Something wrong try again</div>
+    <button class="buy-again-button button-primary js-try-btn">
+        <img class="buy-again-icon" src="images/icons/buy-again.png">
+        <span class="buy-again-message">Try again</span>
+    </button>
+  `;
+ const tryBtnEvent = document.querySelector('.js-try-btn')
+ tryBtnEvent.addEventListener('click',()=>{
+  window.location.href = 'checkout.html'
+ });
+
 };
 
-asyncFunction();
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 Promise.all([loadFetch()]).then(()=>{
