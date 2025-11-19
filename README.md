@@ -5,7 +5,7 @@ A fully functional, responsive e-commerce application built from scratch using *
 It demonstrates a transition from simple scripting to **professional-grade software engineering**, focusing on modularity, state management, and clean code principles without relying on frameworks like React.
 
 ## 🚀 Live Demo
-https://github.com/Ajay20-web/Javascript-Amazon-Learning-project.git
+https://javascript-amazon-learning-project.vercel.app/
 
 ## ✨ Key Features
 
