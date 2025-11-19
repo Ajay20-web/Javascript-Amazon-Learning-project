@@ -59,7 +59,7 @@ Rendering logic is strictly separated to avoid "God Functions."
 
 ```text
 /
-├── amazon.html              # Main Product Page
+├── index.html              # Main Product Page
 ├── checkout.html           # Checkout & Payment
 ├── orders.html             # Order History
 ├── tracking.html           # Order Tracking
